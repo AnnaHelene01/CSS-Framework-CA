@@ -5,37 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page for social application</title>
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="profile.html">Profile</a></li>
-                <li><a href="login.html">Login</a></li>
+        <nav class="navbar navbar-expand bg-primary">
+            <div class="container">
+            <ul class="navbar-nav">
+                <li class="navbar-brand text-white">LOGO</li>
             </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="index.html" class="nav-link text-white display-2">HOME</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link text-white display-2">PROFILE</a></li>
+                <li class="nav-item"><a href="login.html" class="nav-link text-white display-2">LOGIN</a></li>
+            </ul>
+            </div>
         </nav>
     </header>
-    <div>
-        <div>
-            <h1>Welcome</h1>
-            <p>Keep in touch with</p>
-            <p>your friends and family!</p>
+    <div class="container mt-5">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h1 class="display-3">Welcome</h1>
+            <p class="display-5 text-primary">Keep in touch with</p>
+            <p class="display-5 text-primary">your friends and family!</p>
             <p>Write your own posts and read about others lives!</p>
             <div>
-                <button>LOGIN</button>
-                <button>PROFILE</button>
+                <button class="btn btn-primary text-white">LOGIN</button>
+                <button class="btn btn-outline-primary">PROFILE</button>
             </div>
         </div>
-        <div>
-            <img src="homepage-img.webp" alt="image of a girl holding a phone">
+        <div class="col-12 col-md-6 mt-2">
+            <img src="homepage-img.webp" alt="image of a girl holding a phone" class="img-responsive" style="width:100%">
         </div>
     </div>
-    <form>
-        <input type="search" placeholder="Search">
-        <button type="submit">Search</button> 
-    </form>
-    <p>POSTS</p>
+    </div>
+    <div class="container">
+        <form class="col-3 m-auto mt-5 d-flex">
+            <input type="search" placeholder="Search" class="border-primary">
+            <button type="submit" class="border-primary bg-primary text-white">Search</button> 
+        </form>
+    </div>
+    <p class="display-5 text-center mt-6">POSTS</p>
     <div>
         <div>
             <img src="" alt="">
@@ -62,8 +72,8 @@
         <div>
              <div>
                 <p>ADD A PHOTO</p>
-                <button>Add from library</button>
-                <button>Take photo now</button>
+                <button class="btn btn-outline-primary">Add from library</button>
+                <button class="btn btn-outline-primary">Take photo now</button>
              </div>
              <div>
                 <p>ADD TEXT</p>
