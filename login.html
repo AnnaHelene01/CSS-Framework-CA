@@ -8,7 +8,7 @@
     <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header class="mb-5">
         <nav class="navbar navbar-expand bg-primary">
             <div class="container">
             <ul class="navbar-nav">
@@ -22,12 +22,21 @@
             </div>
         </nav>
     </header>
-    <h1>Log in to your page!</h1>
-    <form>
-         <input type="email" placeholder="Type your email...">
-         <input type="name" placeholder="Type your username...">
-         <input type="password" placeholder="Type in your password">
-         <button type="submit">LOG IN</button>
-    </form>
+    <h1 class="mt-5 text-center">Log in to your page!</h1>
+    <div class="container mt-5 d-flex justify-content-center">
+      <div class="row">
+           <div>
+               <div class="form-text mb-4 fs-6">
+                    <input type="email" placeholder="Type your email..." class="btn border border-primary">
+               </div>
+               <div class="form-text mb-4 fs-6">
+                    <input type="password" placeholder="Type in your password" class="btn border border-primary">
+               </div>
+               <div class="mb-3 text-center">
+                    <button type="submit" class="btn btn-primary text-white">LOG IN</button>
+               </div>
+           </div>
+         </div>
+    </div>
 </body>
 </html>
