@@ -20,18 +20,31 @@
    </style>
 <body>
     <header>
-        <nav class="navbar navbar-expand bg-primary">
-            <div class="container">
-            <ul class="navbar-nav">
-                <li class="navbar-brand text-white">LOGO</li>
-            </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="index.html" class="nav-link text-white display-2">HOME</a></li>
-                <li class="nav-item"><a href="profile.html" class="nav-link text-white display-2">PROFILE</a></li>
-                <li class="nav-item"><a href="login.html" class="nav-link text-white display-2">LOGIN</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg bg-primary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="index.html">LOGO</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="profile.html">Profile</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+                  </li>
+                </ul>
+                <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn text-white border" type="submit">Search</button>
+                </form>
+              </div>
             </div>
-        </nav>
+          </nav>
     </header>
     <div class="container mb-5">
     <div class="row">
@@ -106,27 +119,23 @@
       </div>
    </div>
    <p class="display-6 text-center">CREATE A NEW POST</p>
-   <div>
-       <div class="col-4    m-auto d-flex">        
-           <div class="user-icon-small rounded-circle bg-primary"></div>
-           <p class="text-primary">@your user</p>
-       </div>
-       <div class="container mx-auto mt-5">
-           <div class="row">
-            <div class="col-12 col-md-6 text-center mb-3">
-               <p>ADD A PHOTO</p>
-               <button class="btn btn-outline-primary">Add from library</button>
-               <button class="btn btn-outline-primary">Take photo now</button>
-            </div>
-            <div class="col-12 col-md-6 text-center">
-               <p>ADD TEXT</p>
-               <textarea>Type in your text...</textarea>
-            </div>
-            </div>
-       </div>
-       <div class="text-center mt-4 mb-5">
-           <button class="btn btn-primary text-white col-2">POST</button>
-       </div>
-   </div>
+   <div class="d-flex justify-content-center">
+    <form class="w-50">
+      <div class="form-group form-text fs-5 mt-2 mb-2">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title">
+      </div>
+      <div class="form-group form-text fs-5 mb-4">
+        <label for="post">What to post</label>
+        <textarea class="form-control" id="post" rows="3"></textarea>
+      </div>
+      <div>
+          <input type="file" class="form-control-file mb-2">
+          <div class="d-grid gap-2 col-6 mx-auto">
+              <button type="button" class="btn btn-primary mb-4">Post</button>
+          </div>
+          </div>
+    </form>
+</div>
 </body>
 </html>
