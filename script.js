@@ -8,100 +8,113 @@ const submitButton = document.querySelector("button#submitBtn")
 
 console.log(form, usernameInput, emailInput, passwordInput, submitButton);
 
-//Get form-data on the register btn, validate and process
-submitButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    console.log("You've pressed submit bro");
 
+//Hente p taggene for å skrive ut beskjed ved validering
+const usernameMsg = document.querySelector("#usernameMsg");
+const emailMsg = document.querySelector("#emailMsg");
+const passwordMsg = document.querySelector("#passwordMsg");
+
+//Validate form 
+submitButton.addEventListener('click', validateForm);
+function validateForm() {
     const username = usernameInput.value.trim();
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
-})
 
-/**
- * Endpoints
- */
+    const submittedName = username;
+    console.log('Name: ' + submittedName);
+    if (submittedName.length < 2) {
+        usernameMsg.innerHTML += 'The name must be at least 2 characters long!';
+    }
+    if (/\d/.test(submittedName)) { // And make sure it don't contain any digits
+        usernameMsg.innerHTML += "The name cannot contain any digits! ";
+      }
+
+    const submittedEmail = email;
+     console.log('Email: ' + submittedEmail);
+     let emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+     if (!emailPattern.test(submittedEmail)) {
+     emailMsg.innerHTML += "Please enter a valid email";
+     }
+     
+    const submittedPassword = password;
+    if (submittedPassword.length < 8) {
+        passwordMsg.innerHTML += 'The password must be at least 5 characters long!';
+    }
+
+      if (usernameMsg.innerHTML === "" && emailMsg.innerHTML === "" && passwordMsg.innerHTML === "") {
+        console.log("Form is submitted!");
+        //form.submit(); ///for å submitte skjema 
+     }
+     else {
+        console.log("You still have validation errors");
+    }
+}
+
+ // Endpoints
  const APIurl = "https://nf-api.onrender.com/api/v1";
  const registerEndpoint = "/social/auth/register"; // POST
  const loginEndpoint = "/social/auth/login"; // POST
- const allPostsEndpoint = "/social/posts"; // GET
- 
- 
+
  const registerUrl = `${APIurl}${registerEndpoint}`;
- //console.log(registerUrl);
- const newUserData = {
-     name: "anna",
-     email: "YOUR NOROFF MAIL",
-     password: "YOUR PASSWORD",
- }
- 
- /**
-  * Register new user, this can only be run once for each new user
-  * @param {string} url URL to API endpoint
-  * @param {object} data Object with data for new user
-  */
- async function registerNewUser(url, data) {
-     try {
-         const options = {
-             method: 'POST', 
-             headers: {
-                 'Content-Type': 'application/json', 
-             },
-             body: JSON.stringify(data),
-         };
-         console.log(url, data, options);
-     
-         const response = await fetch(url, options);
-         console.log(response);
-         const answer = await response.json();
-         console.log(answer); 
-     } catch(error) {
-         console.warn(error);
-     }
- }
- 
- //registerNewUser(registerUrl, newUserData);
- 
- // Success with user id 1131
- 
- /**
-  * Login Demo
-  * Docs: https://noroff-api-docs.netlify.app/social-endpoints/authentication#login
-  */
- const loginURL = `${APIurl}${loginEndpoint}`;
- 
- const loginData = {
-     email: "YOUR NOROFF MAIL",
-     password: "YOUR PASSWORD",
- }
- 
- /**
-  * Login an existing user and set access token in Local Storage
-  * @param {string} url URL to API endpoint
-  * @param {object} data Object with data for user to be logged in
-  */
- async function loginUser (url, data) {
-     try {
-         const options = {
-             method: 'POST', 
-             headers: {
-                 'Content-Type': 'application/json', 
-             },
-             body: JSON.stringify(data),
-         };
-         console.log(url, data, options);
- 
-         const resonse = await fetch(url, options); 
-         console.log(resonse);
-         const answer = await resonse.json();
-         console.log(answer);
- 
-         localStorage.setItem('username', answer.name);
-         localStorage.setItem('accessToken', answer.accessToken);
- 
-     } catch(error) {
-         console.warn(error);
-     }
- }
- 
- //loginUser(loginURL, loginData);
+
+//Get form-data on the register btn, validate and process
+submitButton.addEventListener("click", validateAndProcess) 
+
+function validateAndProcess(event) {    
+    event.preventDefault();
+    console.log("You've pressed submit bro");
+
+
+    /**
+     * 
+     * @param {string} url URL to API endpoint
+     * @param {object} data Object with the data for new user
+     */
+
+     const username = usernameInput.value.trim();
+     const email = emailInput.value.trim();
+     const password = passwordInput.value.trim();
+
+    const newUserData = {
+        name: username,
+        email: email,
+        password: password,
+    }
+    console.log(newUserData);
+
+    registerNewUser(registerUrl, newUserData);
+};
+
+async function registerNewUser(url, data) {
+    try {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        };
+        console.log(url, data, options)
+        const response = await fetch (url, options);
+        console.log(response);
+        const answer = await response.json();
+        console.log(answer);
+        console.log(answer.message);
+        errorMsg.innerHTML = answer.message;
+    } catch(error) {
+        console.warn(error);
+    }
+}
+
+const errorMsg = document.querySelector("#errorMsg");
+
+// LOGIN USER
+//const userToLogin = {
+ //   email: email,
+   // password: password,
+//}
+
+
+
+
