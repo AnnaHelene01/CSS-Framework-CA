@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home page for social application</title>
     <link href="./css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <style>
@@ -59,34 +60,63 @@
         </div>
     </div>
     </div>
-    <p class="display-5 text-center mt-6">POSTS</p>
-    <div class="col-4 m-auto mb-5 w-50">
-        <div class="d-flex mb-3">
-            <div class="user-icon rounded-circle bg-secondary"></div>
-            <p class="text-primary">@lassebeach</p>
-        </div>
-        <img src="/images/lassebeach-post.webp" alt="Man lifting weights" class="img-responsive container">
-        <p>Today i went to the gym with my brothers, had a nice pump as you can see.</p>
-    </div>
-    <div class="col-4 m-auto mb-5 w-50">
-        <div class="d-flex mb-3">
-            <div class="user-icon rounded-circle bg-success"></div>
-            <p class="text-primary">@espenped</p>
-        </div>
-        <img src="/images/espenped-post.jpeg" alt="Man in nature" class="img-responsive container">
-        <p>This summer i traveled to the lovely city Brønnøysund! I went to the 
-        famous Torghatthull yesterday, loved the picture so i wanted to share it with you guys</p>
-    </div>
-    <div class="col-4 m-auto mb-5 w-50">
-        <div class="d-flex mb-3">
-            <div class="user-icon rounded-circle bg-warning"></div>
-            <p class="text-primary">@tonjetn</p>
-        </div>
-        <img src="/images/tonjetn-post.jpeg" alt="Man in nature" class="img-responsive container">
-        <p>Yesterday i went to a rave. Got kicked out before the main artist arrived. I dont 
-            remeber much of the night, but the vibes were immaculate.
-        </p>
-    </div>
+    <p class="display-5 text-center mt-6">POSTS</p>    
+    <section class="py-5">
+      <div class="container px-4 px-lg-5 mt-1">
+          <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-xl-2 justify-content-center">
+              <div class="col mb-5">
+                  <div class="card h-100">
+                      <div class="card-body p-4">
+                          <div class="text-center">
+                            <h5 class="fw-bolder">Post USER</h5>
+                              <h5 class="fw-bolder">Post TITLE</h5>
+                              <p>Post content</p>
+                              <a href="shop-detail.html"><p>Click to read more</p></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col mb-5">
+                  <div class="card h-100">
+                      <div class="card-body p-4">
+                          <div class="text-center">
+                            <h5 class="fw-bolder">Post USER</h5>
+                              <h5 class="fw-bolder">Post TITLE</h5>
+                              <p>Post content</p>
+                              <a href="shop-detail.html"><p>Click to read more</p></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col mb-5">
+                  <div class="card h-100">
+                      <div class="card-body p-4">
+                          <div class="text-center">
+                            <h5 class="fw-bolder">Post USER</h5>
+                              <h5 class="fw-bolder">Post TITLE</h5>
+                              <p>Post content</p>  
+                              <a href="shop-detail.html"><p>Click to read more</p></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col mb-5">
+                  <div class="card h-100">
+                      <div class="card-body p-4">
+                          <div class="text-center">
+                            <h5 class="fw-bolder">Post USER</h5>
+                              <h5 class="fw-bolder">Post TITLE</h5>
+                              <p>Post content</p>
+                              <a href="shop-detail.html"><p>Click to read more</p></a>
+                          </div>
+                      </div>
+                  </div>
+              </div>                
+          </div>
+      </div>
+  </section>
+
+
     <p class="display-6 text-center">CREATE A NEW POST</p>
     <div class="d-flex justify-content-center">
         <form class="w-50">
@@ -100,9 +130,9 @@
           </div>
           <div>
               <input type="file" class="form-control-file mb-2">
-              <div class="d-grid gap-2 col-6 mx-auto">
-                  <button type="button" class="btn btn-primary mb-4">Post</button>
-              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><a class="btn btn-outline-primary mt-auto" href="#">POST</a></div>
+            </div>
               </div>
         </form>
     </div>
