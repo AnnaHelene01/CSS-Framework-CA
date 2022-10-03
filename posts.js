@@ -5,6 +5,7 @@ const allPostsEndpoint = '/api/v1/social/posts';
 
 
 const getAllPostsURL = `${API_BASE_URL}${allPostsEndpoint}`;
+//let posts = [];
 
 async function getAllPosts (url) {
     try {
@@ -20,6 +21,7 @@ async function getAllPosts (url) {
         const response = await fetch(url, options); 
         console.log(response);
         const posts = await response.json();
+        //posts = posts.post;
         console.log(posts);
         listData(posts, outElement)
     } catch(error) {
@@ -44,6 +46,7 @@ function listData(list, out){
                <div class="text-center">
                   <h2>${post.title}</h2>
                   <p>From: ${post.body}</p>
+                  <img src="${post.media}" class="img-fluid">
                </div>
             </div>
           </div>
@@ -52,6 +55,20 @@ function listData(list, out){
     out.innerHTML = newDivs;
 }
 
+//const inputField = document.getElementById("queryString");
+//inputField.addEventListener("keyup", filterPosts);
+
+//function filterPosts () {
+    //const filterQuery = inputField.value;
+    //console.log(filterQuery);
+    //console.log(posts.length);
+
+    //const filtered = posts.filter((post)=> {
+      //  return post.name.toUpperCase().indexOf(filterQuery.toUpperCase()) > -1;
+    //})
+
+  //  listData(filtered, outElement);
+//}
 
 
 //Create a new post - method: POST
