@@ -92,7 +92,6 @@ async function loginUser(url, data) {
         localStorage.setItem('accessToken', answer.accessToken);
         window.location = "index.html";
      }
-
     } catch(error) {
         console.warn(error);
     }

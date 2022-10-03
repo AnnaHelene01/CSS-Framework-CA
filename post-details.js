@@ -1,13 +1,13 @@
-//Hente alle poster - method: GET
+//Hente en post - method: GET
 // Endpoints
 const API_BASE_URL = "https://nf-api.onrender.com";
-const allPostsEndpoint = '/api/v1/social/posts';
+const singlePostsEndpoint = '/api/v1/social/posts/<id>';
 
 
-const getAllPostsURL = `${API_BASE_URL}${allPostsEndpoint}`;
+const getSinglePostsURL = `${API_BASE_URL}${singlePostsEndpoint}`;
 //let posts = [];
 
-async function getAllPosts (url) {
+async function getSinglePosts (url) {
     try {
         const accessToken = localStorage.getItem('accessToken'); 
         const options = {
@@ -29,7 +29,7 @@ async function getAllPosts (url) {
     }
 }
 
-getAllPosts(getAllPostsURL);
+getSinglePosts(getSinglePostsURL);
 
 const outElement = document.getElementById("post-container");
 
@@ -55,45 +55,3 @@ function listData(list, out){
     }
     out.innerHTML = newDivs;
 }
-
-//const inputField = document.getElementById("queryString");
-//inputField.addEventListener("keyup", filterPosts);
-
-//function filterPosts () {
-    //const filterQuery = inputField.value;
-    //console.log(filterQuery);
-    //console.log(posts.length);
-
-    //const filtered = posts.filter((post)=> {
-      //  return post.name.toUpperCase().indexOf(filterQuery.toUpperCase()) > -1;
-    //})
-
-  //  listData(filtered, outElement);
-//}
-
-
-//Create a new post - method: POST
-const createPost = `${API_BASE_URL}${allPostsEndpoint}`;
-
-async function createNewPost (url) {
-    try {
-        const accessToken = localStorage.getItem('accessToken'); 
-        const options = {
-            method: 'GET', 
-            headers : {
-                Authorization: `Bearer ${accessToken}`,
-            }
-        }
-        console.log(url, options);
-
-        const response = await fetch(url, options); 
-        console.log(response);
-        const posts = await response.json();
-        console.log(posts);
-
-    } catch(error) {
-        console.warn(error);
-    }
-}
-
-createNewPost(createPost);
