@@ -5,7 +5,7 @@ const emailLogin = document.querySelector("input#loginEmail");
 const passwordLogin = document.querySelector("input#loginPassword");
 const submitButton = document.querySelector("button#submitBtn")
 
-console.log(form, usernameInput, emailInput, passwordInput, submitButton);
+console.log(form, emailLogin, passwordLogin, submitButton);
 
 
 //Hente p taggene for å skrive ut beskjed ved validering
@@ -51,22 +51,20 @@ submitButton.addEventListener("click", validateAndProcess)
 function validateAndProcess(event) {    
     event.preventDefault();
     console.log("You've pressed submit bro");
-
-
     /**
      * 
      * @param {string} url URL to API endpoint
      * @param {object} data Object with the data for new user
      */
 
-     const email = emailInput.value.trim();
-     const password = passwordInput.value.trim();
+     const email = emailLogin.value.trim();
+     const password = passwordLogin.value.trim();
 
     const loginData = {
         email: email,
         password: password,
     }
-    console.log(newUserData);
+    console.log(loginData);
 
     loginUser(loginUrl, loginData);
 };
@@ -88,16 +86,18 @@ async function loginUser(url, data) {
         console.log(answer);
         console.log(answer.message);
         errorMsg.innerHTML = answer.message;
-
+         
+     if (response === 200) {
         localStorage.setItem('email', answer.name);
         localStorage.setItem('accessToken', answer.accessToken);
-
+        window.location = "index.html";
+     }
 
     } catch(error) {
         console.warn(error);
     }
 }
 
-loginUser(loginUrl, loginData);
+//loginUser(loginUrl, loginData);
 
 const errorMsg = document.querySelector("#errorMsg");
