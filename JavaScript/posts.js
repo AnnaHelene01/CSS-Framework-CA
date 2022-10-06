@@ -41,6 +41,12 @@ function listData(list, out){
     console.log ("List:", list);
     out.innerHTML = "";
     let newDivs = "";
+
+    const welcome = localStorage.getItem('username');
+    const htmlUsername = document.getElementById('html-username');
+
+    htmlUsername.innerHTML = welcome;
+
     for (let post of list) {
         //console.log(card);
         const delBtn = `<button class="btnDelete" data-delete="${post.id}">DELETE</button>`;
@@ -63,6 +69,7 @@ function listData(list, out){
                          <a href="post-details.html?id=${post.id}"> <p>Click to read more</p></a>
                       <div>
                         ${localStorage.getItem('username') === post.author.name ? delBtn : ""}
+                        ${localStorage.getItem('username') === post.author.name ? updateBtn : ""}
                      </div>
                </div>
             </div>
@@ -75,7 +82,7 @@ function listData(list, out){
     for (let btnDelete of btns){
          btnDelete.addEventListener("click", () => {
             console.log(btnDelete.getAttribute('data-delete'));
-            if ( confirm('Er du heeeeeeeelt skikker på dette?')){
+            if ( confirm('Are you totally sure?')){
                 deletePost(btnDelete.getAttribute('data-delete'));
             }
       }) 
