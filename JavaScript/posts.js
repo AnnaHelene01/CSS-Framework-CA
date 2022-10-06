@@ -28,36 +28,41 @@ async function getAllPosts (url) {
         console.warn(error);
     }
 }
-
+//<button class="btn btn-outline-primary" id="btnDelete">
+    //   <img src="./images/icons8-trash-25.png" class="img-fluid">
+  //     <a href="profile.html" class="text-decoration-none">DELETE</a>
+//</img></button>
 getAllPosts(getAllPostsURL);
 
 const outElement = document.getElementById("post-container");
 
 //Liste ut alle poster på html siden
 function listData(list, out){
-    //console.log ("List:", list);
+    console.log ("List:", list);
     out.innerHTML = "";
     let newDivs = "";
     for (let post of list) {
         //console.log(card);
+        const delBtn = `<button class="btnDelete" data-delete="${post.id}">DELETE</button>`;
+        const updateBtn = `<button class="btnUpdate" data-update="${post.id}">UPDATE</button>`;
         newDivs += `<div class="col mb-5">
                <div class="card h-100">
                   <div class="card-body p-4">
                       <div class="text-center">
-                         <p><strong>@${post.author.name}</strong></p>
+                        <div class="d-flex">
+                           <div class="col-6">
+                             <p><strong>@${post.author.name}</strong></p>
+                           </div>
+                           <div class="col-6">
+                             <p>${post.created}</p>
+                           </div>
+                        </div>
                          <h2>${post.title}</h2>
                          <p>${post.body}</p>
                          <img src="${post.media}" class="img-fluid" alt="">
-                         <a href="post-details.html?id=${post.id}"><p>Click to read more</p></a>
+                         <a href="post-details.html?id=${post.id}"> <p>Click to read more</p></a>
                       <div>
-                        <button class="btn btn-primary">
-                          <img src="./images/icons8-update-30.png" class="img-fluid w-25">
-                          <a href="login.html" class="text-white text-decoration-none">UPDATE</a>
-                        </button>
-                        <button class="btn btn-outline-primary">
-                        <img src="./images/icons8-trash-25.png" class="img-fluid">
-                        <a href="profile.html" class="text-decoration-none">DELETE</a>
-                        </button>
+                        ${localStorage.getItem('username') === post.author.name ? delBtn : ""}
                      </div>
                </div>
             </div>
@@ -65,7 +70,57 @@ function listData(list, out){
         </div>`;
     }
     out.innerHTML = newDivs;
+    const btns = document.querySelectorAll("button.btnDelete");
+    console.log(btns);
+    for (let btnDelete of btns){
+         btnDelete.addEventListener("click", () => {
+            console.log(btnDelete.getAttribute('data-delete'));
+            if ( confirm('Er du heeeeeeeelt skikker på dette?')){
+                deletePost(btnDelete.getAttribute('data-delete'));
+            }
+      }) 
+    }
+
+
+  
 }
+
+
+
+// DELETE POST
+const btnDelete = document.getElementById("btnDelete");
+const deleteEndPoint = '/api/v1/social/posts/'; 
+const deleteURL = `${API_BASE_URL}${deleteEndPoint}`;
+
+async function deletePost (id) {
+    console.log(id);
+    const url = `${deleteURL}${id}`;
+     try {
+        const accessToken = localStorage.getItem('accessToken'); 
+        const options = {
+            method: 'DELETE', 
+            headers : {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        console.log(url, options);
+
+        const response = await fetch(url, options); 
+        console.log(response);
+        const posts = await response.json();
+        console.log(posts);
+        if (response.status === 200) window.location = './main.html';
+    } catch(error) {
+         console.warn(error);
+    }
+}
+
+//deletePost(deleteURL);
+
+
+
+
 
 //const inputField = document.getElementById("queryString");
 //inputField.addEventListener("keyup", filterPosts);
@@ -81,6 +136,14 @@ function listData(list, out){
 
   //  listData(filtered, outElement);
 //}
+
+
+
+
+
+
+
+
 
 //Hente create post verdier:
 const form = document.getElementById("create-container");
@@ -114,18 +177,17 @@ async function createNewPost (url, data) {
         console.log(response);
         const posts = await response.json();
         console.log(posts);
-
+    if (response.status === 200) window.location='./main.html';
     } catch(error) {
         console.warn(error);
     }
 }
 
-createNewPost(createPost);
+//createNewPost(createPost);
 
 submitPost.addEventListener("click", () => {
     
        createNewPost(createPost);
 });
-
 
 

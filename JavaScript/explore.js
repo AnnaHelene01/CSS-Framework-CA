@@ -1,11 +1,11 @@
-//Hente alle poster - method: GET
+//Hente alle profier - method: GET
 // Endpoints
 const API_BASE_URL = "https://nf-api.onrender.com";
 const allUsersEndpoint = '/api/v1/social/profiles';
 
 
 const getAllUsersURL = `${API_BASE_URL}${allUsersEndpoint}`;
-//let posts = [];
+
 
 async function getAllUsers (url) {
     try {
@@ -44,7 +44,7 @@ function listData(list, out){
           <div class="card h-100">
             <div class="card-body p-4">
                <div class="text-center">
-                  <h2>${user.name}</h2>
+                  <h2>@${user.name}</h2>
                   <p><strong>Email:</strong> ${user.email}</p>
                </div>
             </div>

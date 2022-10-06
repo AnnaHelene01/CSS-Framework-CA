@@ -85,6 +85,8 @@ async function loginUser(url, data) {
         const answer = await response.json();
         console.log(answer);
         if (response.status === 200) {
+            localStorage.setItem('username', answer.name);
+            localStorage.setItem('accessToken', answer.accessToken);
             window.location = "/main.html";
         } else if (answer.message === "This profile does not exist! Go and register") {
             errorMsg.innerHTML = answer.message;

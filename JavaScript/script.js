@@ -112,12 +112,11 @@ async function registerNewUser(url, data) {
 
 const errorMsg = document.querySelector("#errorMsg");
 
-// LOGIN USER
-//const userToLogin = {
- //   email: email,
-   // password: password,
-//}
+const user = usernameInput.value;
 
+const indexUser = document.getElementById("html-username");
 
+indexUser.innerHTML = user;
+console.log(indexUser);
 
 
