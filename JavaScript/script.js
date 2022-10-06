@@ -1,22 +1,34 @@
 // REGISTER USER TEST
 //Hente ut elementer
-const form = document.querySelector("form#loginForm");
-const emailLogin = document.querySelector("input#loginEmail");
-const passwordLogin = document.querySelector("input#loginPassword");
+const form = document.querySelector("form#registerForm");
+const usernameInput = document.querySelector("input#inputUsername");
+const emailInput = document.querySelector("input#inputEmail");
+const passwordInput = document.querySelector("input#inputPassword");
 const submitButton = document.querySelector("button#submitBtn")
 
-console.log(form, emailLogin, passwordLogin, submitButton);
+console.log(form, usernameInput, emailInput, passwordInput, submitButton);
 
 
 //Hente p taggene for å skrive ut beskjed ved validering
+const usernameMsg = document.querySelector("#usernameMsg");
 const emailMsg = document.querySelector("#emailMsg");
 const passwordMsg = document.querySelector("#passwordMsg");
 
 //Validate form 
 submitButton.addEventListener('click', validateForm);
 function validateForm() {
-    const email = emailLogin.value.trim();
-    const password = passwordLogin.value.trim();
+    const username = usernameInput.value.trim();
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    const submittedName = username;
+    console.log('Name: ' + submittedName);
+    if (submittedName.length < 2) {
+        usernameMsg.innerHTML += 'The name must be at least 2 characters long!';
+    }
+    if (/\d/.test(submittedName)) { // And make sure it don't contain any digits
+        usernameMsg.innerHTML += "The name cannot contain any digits! ";
+      }
 
     const submittedEmail = email;
      console.log('Email: ' + submittedEmail);
@@ -30,7 +42,7 @@ function validateForm() {
         passwordMsg.innerHTML += 'The password must be at least 5 characters long!';
     }
 
-      if (emailMsg.innerHTML === "" && passwordMsg.innerHTML === "") {
+      if (usernameMsg.innerHTML === "" && emailMsg.innerHTML === "" && passwordMsg.innerHTML === "") {
         console.log("Form is submitted!");
         //form.submit(); ///for å submitte skjema 
      }
@@ -41,9 +53,10 @@ function validateForm() {
 
  // Endpoints
  const APIurl = "https://nf-api.onrender.com/api/v1";
+ const registerEndpoint = "/social/auth/register"; // POST
  const loginEndpoint = "/social/auth/login"; // POST
 
- const loginUrl = `${APIurl}${loginEndpoint}`;
+ const registerUrl = `${APIurl}${registerEndpoint}`;
 
 //Get form-data on the register btn, validate and process
 submitButton.addEventListener("click", validateAndProcess) 
@@ -51,25 +64,29 @@ submitButton.addEventListener("click", validateAndProcess)
 function validateAndProcess(event) {    
     event.preventDefault();
     console.log("You've pressed submit bro");
+
+
     /**
      * 
      * @param {string} url URL to API endpoint
      * @param {object} data Object with the data for new user
      */
 
-     const email = emailLogin.value.trim();
-     const password = passwordLogin.value.trim();
+     const username = usernameInput.value.trim();
+     const email = emailInput.value.trim();
+     const password = passwordInput.value.trim();
 
-    const loginData = {
+    const newUserData = {
+        name: username,
         email: email,
         password: password,
     }
-    console.log(loginData);
+    console.log(newUserData);
 
-    loginUser(loginUrl, loginData);
+    registerNewUser(registerUrl, newUserData);
 };
 
-async function loginUser(url, data) {
+async function registerNewUser(url, data) {
     try {
         const options = {
             method: 'POST',
@@ -79,24 +96,28 @@ async function loginUser(url, data) {
             body: JSON.stringify(data),
         };
         console.log(url, data, options)
-
         const response = await fetch (url, options);
         console.log(response);
         const answer = await response.json();
         console.log(answer);
-        console.log(answer.message);
-        errorMsg.innerHTML = answer.message;
-         
-     if (response === 200) {
-        localStorage.setItem('email', answer.name);
-        localStorage.setItem('accessToken', answer.accessToken);
-        window.location = "index.html";
-     }
+        if (response.status === 201) {
+            window.location = "/index.html";
+        } else if (answer.message === "Profile already exists") {
+            errorMsg.innerHTML = answer.message;
+        }
     } catch(error) {
         console.warn(error);
     }
 }
 
-//loginUser(loginUrl, loginData);
-
 const errorMsg = document.querySelector("#errorMsg");
+
+// LOGIN USER
+//const userToLogin = {
+ //   email: email,
+   // password: password,
+//}
+
+
+
+

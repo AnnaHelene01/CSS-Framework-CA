@@ -45,9 +45,19 @@ function listData(list, out){
             <div class="card-body p-4">
                <div class="text-center">
                   <h2>${post.title}</h2>
-                  <p>From: ${post.body}</p>
-                  <img src="${post.media}" class="img-fluid">
+                  <p>${post.body}</p>
+                  <img src="${post.media}" class="img-fluid" alt="">
                   <a href="post-details.html?post"><p>Click to read more</p></a>
+                  <div>
+                  <button class="btn btn-primary">
+                  <img src="./images/icons8-update-30.png" class="img-fluid w-25">
+                  <a href="login.html" class="text-white text-decoration-none">UPDATE</a>
+                  </button>
+                  <button class="btn btn-outline-primary">
+                  <img src="./images/icons8-trash-25.png" class="img-fluid">
+                  <a href="profile.html" class="text-decoration-none">DELETE</a>
+                  </button>
+              </div>
                </div>
             </div>
           </div>
