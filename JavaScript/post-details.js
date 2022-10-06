@@ -3,13 +3,14 @@ const outElement = document.getElementById("container");
 //Hente en post - method: GET
 // Endpoints
 const API_BASE_URL = "https://nf-api.onrender.com";
-const singlePostsEndpoint = '/api/v1/social/posts';
+const singlePostsEndpoint = '/api/v1/social/posts/';
 
 let params = new URLSearchParams(document.location.search);
 let id = params.get("id"); 
 
 const getSinglePostsURL = `${API_BASE_URL}${singlePostsEndpoint}${id}`;
 //let posts = [];
+console.log(id);
 
 async function getSinglePosts (url) {
     try {
