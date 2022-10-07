@@ -28,10 +28,7 @@ async function getAllPosts (url) {
         console.warn(error);
     }
 }
-//<button class="btn btn-outline-primary" id="btnDelete">
-    //   <img src="./images/icons8-trash-25.png" class="img-fluid">
-  //     <a href="profile.html" class="text-decoration-none">DELETE</a>
-//</img></button>
+
 getAllPosts(getAllPostsURL);
 
 const outElement = document.getElementById("post-container");
@@ -49,8 +46,8 @@ function listData(list, out){
 
     for (let post of list) {
         //console.log(card);
-        const delBtn = `<button class="btnDelete" data-delete="${post.id}">DELETE</button>`;
-        const updateBtn = `<button class="btnUpdate" data-update="${post.id}">UPDATE</button>`;
+        const delBtn = `<button class="btnDelete btn btn-outline-primary" data-delete="${post.id}">DELETE</button>`;
+        const updateBtn = `<button class="btnUpdate btn btn-primary text-white" data-update="${post.id}">UPDATE</button>`;
         newDivs += `<div class="col mb-5">
                <div class="card h-100">
                   <div class="card-body p-4">
@@ -77,6 +74,7 @@ function listData(list, out){
         </div>`;
     }
     out.innerHTML = newDivs;
+    //Delete posts
     const btns = document.querySelectorAll("button.btnDelete");
     console.log(btns);
     for (let btnDelete of btns){
@@ -87,15 +85,65 @@ function listData(list, out){
             }
       }) 
     }
+    //Update posts
+    const updatebtns = document.querySelectorAll("button.btnUpdate");
+    console.log(updatebtns);
+    for (let btnUpdate of updatebtns) {
+        btnUpdate.addEventListener("click", () => {
+            console.log(btnUpdate.getAttribute('data-update'));
+        })
+    }
 
+    //Filtrere posts / search input
+    const inputField = document.getElementById("queryString");
+    inputField.addEventListener("keyup", filterPosts);
 
-  
+    function filterPosts () {
+        const filterPosts = inputField.value;
+        console.log(filterPosts);
+        console.log(list.length);
+
+        const filtered = list.filter((post)=> {
+            console.log(post.title, filterPosts);
+            console.log(post.title.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1);
+            //return post.name.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1;
+        })
+
+        listData(filtered, outElement);
+    }
 }
 
 
+// UPDATE POST
+const updateEndPoint = '/api/v1/social/posts/'; 
+const updateURL = `${API_BASE_URL}${updateEndPoint}`;
+
+async function updatePost (id) {
+    console.log(id);
+    const upUrl = `${updateURL}${id}`;
+     try {
+        const accessToken = localStorage.getItem('accessToken'); 
+        const options = {
+            method: 'PUT', 
+            headers : {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+        };
+        console.log(upUrl, options);
+
+        const response = await fetch(upUrl, options); 
+        console.log(response);
+        const posts = await response.json();
+        console.log(posts);
+        if (response.status === 200) window.location = './main.html';
+    } catch(error) {
+         console.warn(error);
+    }
+}
+
 
 // DELETE POST
-const btnDelete = document.getElementById("btnDelete");
 const deleteEndPoint = '/api/v1/social/posts/'; 
 const deleteURL = `${API_BASE_URL}${deleteEndPoint}`;
 
@@ -123,26 +171,8 @@ async function deletePost (id) {
     }
 }
 
-//deletePost(deleteURL);
 
 
-
-
-
-//const inputField = document.getElementById("queryString");
-//inputField.addEventListener("keyup", filterPosts);
-
-//function filterPosts () {
-    //const filterQuery = inputField.value;
-    //console.log(filterQuery);
-    //console.log(posts.length);
-
-    //const filtered = posts.filter((post)=> {
-      //  return post.name.toUpperCase().indexOf(filterQuery.toUpperCase()) > -1;
-    //})
-
-  //  listData(filtered, outElement);
-//}
 
 
 
@@ -196,5 +226,3 @@ submitPost.addEventListener("click", () => {
     
        createNewPost(createPost);
 });
-
-

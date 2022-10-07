@@ -44,14 +44,13 @@ function listData(post, out){
     console.log ("List:", post);
     out.innerHTML = "";
     let newDivs = "";
-        newDivs += `<div class="col mb-5">
-          <div class="card h-100">
+        newDivs += `<div class="col-6 mb-5 m-auto">
+          <div class="card h-100 ">
             <div class="card-body p-4">
-               <div class="text-center">
+               <div class="text-center ">
                   <h2>${post.title}</h2>
                   <p>From: ${post.body}</p>
                   <img src="${post.media}" class="img-fluid">
-                 
                </div>
             </div>
           </div>
