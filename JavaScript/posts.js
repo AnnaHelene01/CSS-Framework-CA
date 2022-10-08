@@ -100,13 +100,13 @@ function listData(list, out){
 
     function filterPosts () {
         const filterPosts = inputField.value;
-        console.log(filterPosts);
+        //console.log(filterPosts);
         console.log(list.length);
 
         const filtered = list.filter((post)=> {
-            console.log(post.title, filterPosts);
-            console.log(post.title.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1);
-            //return post.name.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1;
+            //console.log(post.author.name, filterPosts);
+            //console.log(post.author.name.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1);
+            return post.author.name.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1;
         })
 
         listData(filtered, outElement);
