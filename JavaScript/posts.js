@@ -35,7 +35,7 @@ const outElement = document.getElementById("post-container");
 
 //Liste ut alle poster på html siden
 function listData(list, out){
-    console.log ("List:", list);
+    //console.log ("List:", list);
     out.innerHTML = "";
     let newDivs = "";
 
@@ -76,7 +76,7 @@ function listData(list, out){
     out.innerHTML = newDivs;
     //Delete posts
     const btns = document.querySelectorAll("button.btnDelete");
-    console.log(btns);
+    //console.log(btns);
     for (let btnDelete of btns){
          btnDelete.addEventListener("click", () => {
             console.log(btnDelete.getAttribute('data-delete'));
@@ -87,7 +87,7 @@ function listData(list, out){
     }
     //Update posts
     const updatebtns = document.querySelectorAll("button.btnUpdate");
-    console.log(updatebtns);
+    //console.log(updatebtns);
     for (let btnUpdate of updatebtns) {
         btnUpdate.addEventListener("click", () => {
             console.log(btnUpdate.getAttribute('data-update'));
@@ -99,14 +99,23 @@ function listData(list, out){
     inputField.addEventListener("keyup", filterPosts);
 
     function filterPosts () {
-        const filterPosts = inputField.value;
+        const filterPosts = inputField.value.toLowerCase();
         //console.log(filterPosts);
-        console.log(list.length);
+        //console.log(list.length);
 
         const filtered = list.filter((post)=> {
             //console.log(post.author.name, filterPosts);
             //console.log(post.author.name.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1);
-            return post.author.name.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1;
+            //return post.author.name.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1;
+            //post.author.name & post.title & post.created
+            const author = post.author.name.toLowerCase();
+            const title = post.title.toLowerCase();
+            const published = post.created.toString();
+            //console.log(author, title, published);
+            if (author.indexOf(filterPosts) > -1) return true;
+            if (title.indexOf(filterPosts) > -1) return true;
+            if (published.indexOf(filterPosts) > -1) return true;
+            return false;
         })
 
         listData(filtered, outElement);
