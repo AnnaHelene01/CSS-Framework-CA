@@ -87,6 +87,7 @@ async function updatePost (id) {
 const editBtn = document.getElementById("updatePost");
 
 editBtn.addEventListener("click", () => {
-    
-    window.location = `./main.html`;
+    console.log(id);
+    updatePost(id);
+    //window.location = `./main.html`;
 })
