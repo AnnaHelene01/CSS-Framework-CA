@@ -6,6 +6,7 @@ const allPostsEndpoint = '/api/v1/social/posts?_author=true&_comments=true&_reac
 
 const getAllPostsURL = `${API_BASE_URL}${allPostsEndpoint}`;
 //let posts = [];
+let collection = [];
 
 async function getAllPosts (url) {
     try {
@@ -21,13 +22,14 @@ async function getAllPosts (url) {
         const response = await fetch(url, options); 
         console.log(response);
         const posts = await response.json();
-        //posts = posts.post;
-        console.log(posts);
+        console.log("Posts:", posts);
+        collection = posts;
+        console.log("Collection:", collection);
         listData(posts, outElement)
     } catch(error) {
         console.warn(error);
     }
-}
+}   
 
 getAllPosts(getAllPostsURL);
 
@@ -91,8 +93,11 @@ function listData(list, out){
     for (let btnUpdate of updatebtns) {
         btnUpdate.addEventListener("click", () => {
             console.log(btnUpdate.getAttribute('data-update'));
+            const updateId = btnUpdate.getAttribute('data-update');
+            window.location =`./post-edit.html?id=${updateId}`;
         })
     }
+}
 
     //Filtrere posts / search input
     const inputField = document.getElementById("queryString");
@@ -103,11 +108,12 @@ function listData(list, out){
         //console.log(filterPosts);
         //console.log(list.length);
 
-        const filtered = list.filter((post)=> {
+        const filtered = collection.filter((post)=> {
             //console.log(post.author.name, filterPosts);
             //console.log(post.author.name.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1);
             //return post.author.name.toUpperCase().indexOf(filterPosts.toUpperCase()) > -1;
             //post.author.name & post.title & post.created
+            console.log(collection.length);
             const author = post.author.name.toLowerCase();
             const title = post.title.toLowerCase();
             const published = post.created.toString();
@@ -120,36 +126,6 @@ function listData(list, out){
 
         listData(filtered, outElement);
     }
-}
-
-
-// UPDATE POST
-const updateEndPoint = '/api/v1/social/posts/'; 
-const updateURL = `${API_BASE_URL}${updateEndPoint}`;
-
-async function updatePost (id) {
-    console.log(id);
-    const upUrl = `${updateURL}${id}`;
-     try {
-        const accessToken = localStorage.getItem('accessToken'); 
-        const options = {
-            method: 'PUT', 
-            headers : {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
-            },
-        };
-        console.log(upUrl, options);
-
-        const response = await fetch(upUrl, options); 
-        console.log(response);
-        const posts = await response.json();
-        console.log(posts);
-        if (response.status === 200) window.location = './main.html';
-    } catch(error) {
-         console.warn(error);
-    }
-}
 
 
 // DELETE POST
