@@ -27,4 +27,4 @@ Submission for this project will follow the pattern used in professional develop
 
 ## Delivery
 -Design link: ( https://www.figma.com/file/n3FmggBo6n9IJUMWyPKbHv/CSS-Framework-CA?node-id=0%3A1 )
--Netlify host: 
+-Netlify host: (https://buzz-it.netlify.app/index.html)
